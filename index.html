@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Support</title>
+<meta name="description" content="Support and legal documents.">
+<style>
+  :root { color-scheme: light dark; --gold: #b3841e; }
+
+  * { box-sizing: border-box; }
+
+  html {
+    /* Safari on iPhone enlarges text in landscape without this. */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Grows a little on a wide screen, never below 16px — anything smaller
+       makes iOS Safari zoom the page when a link is tapped. */
+    font-size: clamp(16px, 0.95rem + 0.25vw, 18px);
+    line-height: 1.65;
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 1.15rem 4rem;
+    padding-left: max(1.15rem, env(safe-area-inset-left));
+    padding-right: max(1.15rem, env(safe-area-inset-right));
+  }
+
+  h1 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem); line-height: 1.25; margin: 0 0 .3rem; }
+  h2 { font-size: clamp(1.05rem, 1rem + .5vw, 1.2rem); line-height: 1.35; margin: 2.2rem 0 .5rem; }
+  h3 { font-size: 1rem; margin: 1.6rem 0 .3rem; }
+
+  .meta { opacity: .65; font-size: .9rem; margin: 0; }
+  .rule { width: 46px; height: 3px; background: var(--gold); border: 0; margin: 1.15rem 0 1.9rem; }
+
+  ul { padding-left: 1.15rem; }
+  li { margin-bottom: .4rem; }
+
+  a {
+    color: var(--gold);
+    /* An email address or a long URL must not push the page sideways. */
+    overflow-wrap: anywhere;
+  }
+
+  footer {
+    margin-top: 3.5rem; padding-top: 1.4rem;
+    border-top: 1px solid rgba(128,128,128,.3);
+    font-size: .88rem; opacity: .7;
+  }
+</style>
+</head>
+<body>
+<h1>Support</h1>
+<p class="meta">Sharon Louise Palmer</p>
+<hr class="rule">
+
+<p>
+  For help with any of these apps, or any question about a subscription, email
+  <a href="mailto:sharonlouise@gmail.com">sharonlouise@gmail.com</a>. A person reads every
+  message, usually the same day.
+</p>
+
+<h2>Recipe Keeper</h2>
+<ul>
+  <li><a href="recipe-keeper/help.html">Support and frequently asked questions</a></li>
+  <li><a href="recipe-keeper/privacy.html">Privacy Policy</a></li>
+  <li><a href="recipe-keeper/terms.html">Terms of Use</a></li>
+</ul>
+
+<h2>Bracket Maker</h2>
+<ul>
+  <li><a href="help.html">Support and frequently asked questions</a></li>
+  <li><a href="privacy.html">Privacy Policy</a></li>
+  <li><a href="terms.html">Terms of Use</a></li>
+</ul>
+
+<footer>
+  <p>Sharon Louise Palmer<br>
+  <a href="mailto:sharonlouise@gmail.com">sharonlouise@gmail.com</a></p>
+</footer>
+
+</body>
+</html>

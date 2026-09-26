@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Secret Santa invite &middot; Wishlyst</title>
+<meta name="description" content="Join a Secret Santa exchange in Wishlyst.">
+<style>
+  :root { color-scheme: light dark; --accent: #b44563; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: clamp(16px, 1rem + 0.2vw, 18px);
+    line-height: 1.65;
+    margin: 0 auto;
+    max-width: 42rem;
+    padding: 2.5rem 1.25rem 4rem;
+    color: #241a1e;
+    background: #fff9f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { color: #f0eef0; background: #14161b; }
+    a { color: #d79ab0; }
+    hr { border-color: #2c313c; }
+    .note { background: #1c1f27; border-color: #2c313c; }
+  }
+  h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 .35rem; font-weight: 600; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 .5rem; font-weight: 600; }
+  .updated { color: #7a6a70; font-size: .9rem; margin: 0 0 2rem; }
+  @media (prefers-color-scheme: dark) { .updated { color: #9aa0aa; } }
+  a { color: var(--accent); }
+  ul { padding-left: 1.15rem; }
+  li { margin: .3rem 0; }
+  hr { border: 0; border-top: 1px solid #ecdfe1; margin: 2.5rem 0 1.5rem; }
+  .button {
+    display: inline-block; padding: .85rem 1.6rem; border-radius: 999px;
+    background: var(--accent); color: #fff; text-decoration: none; font-weight: 600;
+  }
+  .note {
+    background: #fff;
+    border: 1px solid #ecdfe1;
+    border-radius: 14px;
+    padding: 1rem 1.15rem;
+    margin: 1.25rem 0;
+  }
+  footer { margin-top: 3rem; font-size: .9rem; color: #7a6a70; }
+  @media (prefers-color-scheme: dark) { footer { color: #9aa0aa; } }
+</style>
+</head>
+<body>
+<h1 id="title">Secret Santa</h1>
+<p class="updated">Wishlyst</p>
+
+<div class="note">
+<p id="intro">Reading your link&hellip;</p>
+<p id="open-wrap" style="display:none;margin:1rem 0 0">
+  <a id="open" class="button" href="#">Open in Wishlyst</a>
+</p>
+</div>
+
+<div id="paste-wrap" style="display:none">
+<h2>If the button did nothing</h2>
+<p>The app may not be installed yet, or your messenger trimmed the link. Copy the code
+below, open Wishlyst on your iPhone, go to the <strong>Santa</strong> tab and tap
+<strong>Join with a code</strong>.</p>
+<p id="code" style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;
+   word-break:break-all;background:rgba(180,69,99,.08);padding:.75rem;border-radius:.5rem"></p>
+</div>
+
+<h2>What happens next</h2>
+<ul>
+  <li>You join the exchange from the link above.</li>
+  <li>You send the organiser one short reply, so your result can be sealed for you.</li>
+  <li>When everyone is in, the organiser draws names and sends one message to the group.</li>
+  <li>Your phone opens the one part of it that belongs to you &mdash; and nobody else's.</li>
+</ul>
+
+<h2>One honest note</h2>
+<p>The draw runs on the organiser's iPhone, so whoever set the exchange up could see
+every pair. The app doesn't hide that from you and doesn't claim otherwise. What it
+does guarantee is the other direction: the message sent to the group reveals nothing
+to anyone but its intended reader.</p>
+
+<script>
+  // Посылка в якоре: #c=<код>. Голый якорь без имени параметра тоже принимаем —
+  // так короче, и старые ссылки такими и были.
+  var raw = location.hash.replace(/^#/, '');
+  var value = raw.indexOf('=') === -1
+    ? decodeURIComponent(raw)
+    : (new URLSearchParams(raw)).get('c');
+
+  // Запасной путь для совсем старых ссылок с ?code=ABC123.
+  if (!value) { value = new URLSearchParams(location.search).get('code'); }
+
+  var titles = {
+    'WLS1.': ["You're invited", 'The whole exchange travels inside this link. Tap to open it in the app.'],
+    'WLJ1.': ['A reply for the organiser', 'Someone is joining your exchange. Tap to add them.'],
+    'WLR1.': ['The draw is done', 'Every pair is sealed separately. Tap to open the one that belongs to you.'],
+    'WL2.':  ['Your person is inside', 'Tap to open your pair in the app.'],
+    'WL1.':  ['Your person is inside', 'Tap to open your pair in the app.']
+  };
+
+  if (value) {
+    var head = ['WLS1.', 'WLJ1.', 'WLR1.', 'WL2.', 'WL1.'].filter(function (p) {
+      return value.indexOf(p) === 0;
+    })[0];
+    var text = titles[head] || ['Secret Santa', 'Tap to open this in the app.'];
+
+    document.getElementById('title').textContent = text[0];
+    document.getElementById('intro').textContent = text[1];
+    document.getElementById('open').href = 'wishlyst://santa?c=' + encodeURIComponent(value);
+    document.getElementById('open-wrap').style.display = '';
+    document.getElementById('paste-wrap').style.display = '';
+    document.getElementById('code').textContent = value;
+  } else {
+    document.getElementById('intro').textContent =
+      'This link is missing its content. Ask for it again \u2014 the whole link, not a piece of it.';
+  }
+</script>
+
+<footer>
+  <p>Sharon Louise Palmer<br>
+  <a href="mailto:sharonlouise@gmail.com">sharonlouise@gmail.com</a></p>
+</footer>
+</body>
+</html>

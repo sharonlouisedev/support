@@ -46,19 +46,30 @@
   }
   footer { margin-top: 3rem; font-size: .9rem; color: #7a6a70; }
   @media (prefers-color-scheme: dark) { footer { color: #9aa0aa; } }
+  /* Тёмная тема — последним блоком, а не первым.
+     Правило .note с белым фоном стояло НИЖЕ медиазапроса, и при равной
+     специфичности побеждало оно: в тёмной теме получалась белая плашка со
+     светлым текстом, то есть нечитаемая. Здесь блок стоит последним и потому
+     выигрывает; цвет текста задан явно, а не наследуется от body. */
+  @media (prefers-color-scheme: dark) {
+    .note { background: #1c1f27; border-color: #2c313c; color: #f0eef0; }
+    .note strong { color: #ffffff; }
+  }
 </style>
 </head>
 <body>
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated 10 September 2026</p>
+<p class="updated">Last updated 28 September 2026</p>
 
 <p>Wishlyst keeps what you save on your iPhone. There is no account, no sign-up,
 and no server of ours that your lists pass through.</p>
 
 <div class="note">
-<p><strong>The short version.</strong> We do not collect your data, because there is
-nowhere for it to go. Nothing you add is sent to us. We cannot see your wishes,
-your lists, your contacts, or what you bought for whom.</p>
+<p><strong>The short version.</strong> We do not collect your wishes, your lists or
+your contacts &mdash; there is nowhere for them to go. We cannot see what you saved
+or what you bought for whom. The only thing that ever leaves your iPhone is the
+receipt for a subscription, if you buy one, and that goes to the service that
+checks it is still valid.</p>
 </div>
 
 <h2>What the app stores, and where</h2>
@@ -67,7 +78,7 @@ your lists, your contacts, or what you bought for whom.</p>
   people you add, planned gifts, budgets and Secret Santa events are stored in the
   app's own database on your iPhone.</li>
 </ul>
-<p>There is no account, no server and no cloud copy — the app has no backend at all.
+<p>There is no account, no server of ours and no cloud copy of your lists.
 Two consequences worth knowing: it does not sync between your devices, and removing
 the app removes what it stored. Your iPhone's own encrypted backup is what carries
 the data to a new phone.</p>
@@ -101,14 +112,21 @@ see that a request was made, as it can for any visitor.</p>
 <p>Subscriptions are handled by Apple. Payment details are entered in Apple's own
 interface and are never seen by this app. We receive no card information and no name
 or address from a purchase.</p>
+<p>To know whether your subscription is still active, the app uses
+<a href="https://apphud.com/privacy">Apphud</a>, a subscription service. Apphud
+receives your App Store receipt and a device identifier &mdash; nothing else. It
+never sees your wishes, your lists, the people you added or your photos: those stay
+on your iPhone. This is the only thing in the app that talks to a service other than
+Apple.</p>
 
 <h2>What we do not do</h2>
 <ul>
-  <li>No analytics or usage tracking.</li>
+  <li>No analytics about how you use the app &mdash; what you open, what you search
+  for, how long you stay. None of that is measured or sent anywhere.</li>
   <li>No advertising, and no advertising identifiers.</li>
-  <li>No third-party trackers or marketing tools.</li>
-  <li>No selling or sharing of personal data, because none is collected.</li>
-  <li>No searching for other people by phone number or email — there is no such feature.</li>
+  <li>No tracking across other apps or websites.</li>
+  <li>No selling or sharing of your data with anyone.</li>
+  <li>No searching for other people by phone number or email &mdash; there is no such feature.</li>
 </ul>
 
 <h2>Sharing, when you choose it</h2>

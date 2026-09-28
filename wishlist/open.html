@@ -34,6 +34,15 @@
     background: #fff; border: 1px solid #f0dfe4;
   }
   footer { margin-top: 3rem; font-size: .85rem; opacity: .7; }
+  /* Тёмная тема — последним блоком, а не первым.
+     Правило `.note { background: #fff }` стояло НИЖЕ медиазапроса, и при равной
+     специфичности побеждало оно: в тёмной теме получалась белая плашка со
+     светлым текстом, то есть нечитаемая. Здесь блок стоит последним и потому
+     выигрывает; цвет текста задан явно, а не наследуется от body. */
+  @media (prefers-color-scheme: dark) {
+    .note { background: #1c1f27; border-color: #2c313c; color: #f0eef0; }
+    .note strong { color: #ffffff; }
+  }
 </style>
 </head>
 <body>

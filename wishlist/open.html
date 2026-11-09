@@ -56,7 +56,7 @@
 
 <div class="note">
   <p><strong>Don't have the app yet?</strong>
-  <a href="./help.html">Get Wishlyst</a>, then come back to this page and tap the button.</p>
+  <a id="get" href="https://apps.apple.com/app/id6816259169">Get Wishlyst</a> — when you open it the first time, it offers to open this for you.</p>
 </div>
 
 <script>
@@ -73,8 +73,34 @@
   var wish = params.get('w');
   var profile = params.get('p');
   var value = wish || profile;
+  // Публичная страница: в ссылке только код, сама страница живёт в iCloud.
+  var page = params.get('u');
+  var list = params.get('l');
+  // Какие желания из списка отправили (короткие коды через запятую).
+  var keep = params.get('k');
+  // Поля профиля, открытые только этому получателю.
+  var extra = params.get('x');
+  // Тайный Санта: в ссылке только код обмена, сам обмен — в iCloud.
+  var santa = params.get('s');
 
-  if (value) {
+  if (santa) {
+    var santaLink = document.getElementById('open');
+    santaLink.href = 'wishlyst://open?s=' + encodeURIComponent(santa);
+    document.getElementById('open-wrap').style.display = '';
+    document.getElementById('title').textContent = 'A Secret Santa for you';
+    document.getElementById('intro').textContent =
+      'Tap to join it in Wishlyst. Names are drawn in the app — nobody sees who got whom.';
+  } else if (page) {
+    var pageLink = document.getElementById('open');
+    pageLink.href = 'wishlyst://open?u=' + encodeURIComponent(page)
+      + (list ? '&l=' + encodeURIComponent(list) : '')
+      + (keep ? '&k=' + encodeURIComponent(keep) : '')
+      + (extra ? '&x=' + encodeURIComponent(extra) : '');
+    document.getElementById('open-wrap').style.display = '';
+    document.getElementById('title').textContent = 'A wishlist for you';
+    document.getElementById('intro').textContent =
+      'Tap to open it in Wishlyst. You can reserve a gift there, so nobody buys the same thing.';
+  } else if (value) {
     var link = document.getElementById('open');
     link.href = 'wishlyst://open?' + (wish ? 'w=' : 'p=') + encodeURIComponent(value);
     document.getElementById('open-wrap').style.display = '';
@@ -86,6 +112,21 @@
     document.getElementById('intro').textContent =
       'This link is missing its content. Ask for it again — the whole link, not a piece of it.';
   }
+
+  // Перед походом в App Store ссылка в приложение копируется в буфер:
+  // после установки и первого запуска приложение предложит её открыть.
+  // iOS не умеет передать ссылку через установку, буфер — единственный мост.
+  //
+  // Копируется адрес ЭТОЙ страницы (https://…#u=…), а не wishlyst://…:
+  // приложение спрашивает «открыть присланное?», только если в буфере
+  // веб-адрес, — так вопрос не появляется у тех, кто ни по какой ссылке
+  // не приходил. Разобрать такой адрес приложение умеет.
+  document.getElementById('get').addEventListener('click', function () {
+    var target = document.getElementById('open').getAttribute('href');
+    if (target && target.indexOf('wishlyst://') === 0 && navigator.clipboard) {
+      navigator.clipboard.writeText(location.href).catch(function () {});
+    }
+  });
 </script>
 
 <footer>
